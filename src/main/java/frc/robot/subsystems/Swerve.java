@@ -31,7 +31,9 @@ public class Swerve extends SubsystemBase {
   public Pigeon2 gyro;
   public Field2d field = new Field2d();
   public PIDController anglePidController = new PIDController(0.0015, 0, 0);
-
+  
+  public PIDController visionTXController = new PIDController(1, 0, 0);
+  
   public Swerve() {
 
     try {
