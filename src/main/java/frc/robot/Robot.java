@@ -103,11 +103,16 @@ public class Robot extends TimedRobot {
     double rotationSup = stick_0.getRawAxis(2);
 
     double translationVal = MathUtil.applyDeadband(translationSup * swerveSpeed, Constants.stickDeadband);
-    double strafeVal = MathUtil.applyDeadband(strafeSup * swerveSpeed, Constants.stickDeadband);
+    double strafeVal = MathUtil.applyDeadband(strafeSup + pidvalue * swerveSpeed, Constants.stickDeadband);
     double rotationVal = MathUtil.applyDeadband(rotationSup * swerveAngularSpeed, Constants.stickDeadband);
 
     RobotContainer.swerve.drive(new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), rotationVal * Constants.Swerve.maxAngularVelocity, true, true);
-
+    
+    if(stick_0.getRawButton(1)){
+      double pidvalue = RobotContainer.swerve.visionTXController.calculate(LimelightTX,0);
+    }else{
+      pidvalue =0;
+    }
   }
 
   @Override
